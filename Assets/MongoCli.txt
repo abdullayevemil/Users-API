@@ -1,9 +1,0 @@
-use BooksDb
-
-db.createCollection("Books")
-
-db.Books.insertOne({_id:1, Name:"Nineteen Eighty-Four", Author:"George Orwell", Pages:385, Tags:["Classics", "Dystopian"]}, { forceServerObjectId: false })
-
-db.Books.insertOne({_id:2, Name:"Animal Farm", Author:"George Orwell", Pages:280, Tags:["Classics", "Psychology"]}, { forceServerObjectId: false })
-
-db.Books.insertOne({_id:3, Name:"The Sign of the Four", Author:"Arthur Conan Doyle", Pages:140, Tags:["Classics", "Detective"]}, { forceServerObjectId: false })

@@ -4,6 +4,8 @@ services:
   usersapiapp:
     image: usersapi
     container_name: usersapiapp
+    depends_on:
+      - postgres
     build:
       context: .
       dockerfile: Dockerfile
@@ -14,6 +16,20 @@ services:
     networks:
       - mybridgenetwork
     restart: always
+
+  postgres:
+    image: postgres
+    container_name: postgresdb
+    environment:
+      - POSTGRES_USER=emil
+      - POSTGRES_PASSWORD=Secret123!
+      - POSTGRES_DB=library
+    networks:
+      - mybridgenetwork
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
 
 
 

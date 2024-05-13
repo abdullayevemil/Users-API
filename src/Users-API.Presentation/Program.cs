@@ -31,59 +31,55 @@ builder.Services.AddScoped<IUsersService, UsersService>();
 
 var app = builder.Build();
 
-// using (var scope = app.Services.CreateScope())
-// {
-//     var dbContext = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
 
-//     await dbContext.Database.MigrateAsync();
+    await dbContext.Database.MigrateAsync();
 
-//     await dbContext.Database.EnsureCreatedAsync();
+    await dbContext.Database.EnsureCreatedAsync();
 
-//     await dbContext.Users.AddAsync(new User
-//     {
-//         Name = "Emil",
-//         BirthDate = new DateOnly(2006, 4, 27)
-//     });
+    if (dbContext.Users.Any() == false)
+    {
+        await dbContext.Users.AddAsync(new User
+        {
+            Name = "Emil",
+            BirthDate = new DateOnly(2006, 4, 27)
+        });
 
-//     await dbContext.Users.AddAsync(new User
-//     {
-//         Name = "Bob",
-//         BirthDate = new DateOnly(1999, 3, 4)
-//     });
+        await dbContext.Users.AddAsync(new User
+        {
+            Name = "Bob",
+            BirthDate = new DateOnly(1999, 3, 4)
+        });
 
-//     await dbContext.UsersBooks.AddAsync(new UserBook
-//     {
-//         UserId = 1,
-//         BookId = 1
-//     });
+        await dbContext.UsersBooks.AddAsync(new UserBook
+        {
+            UserId = 1,
+            BookId = 1
+        });
 
-//     await dbContext.UsersBooks.AddAsync(new UserBook
-//     {
-//         UserId = 1,
-//         BookId = 2
-//     });
+        await dbContext.UsersBooks.AddAsync(new UserBook
+        {
+            UserId = 1,
+            BookId = 2
+        });
 
-//     await dbContext.UsersBooks.AddAsync(new UserBook
-//     {
-//         UserId = 2,
-//         BookId = 2
-//     });
+        await dbContext.UsersBooks.AddAsync(new UserBook
+        {
+            UserId = 2,
+            BookId = 2
+        });
 
-//     await dbContext.UsersBooks.AddAsync(new UserBook
-//     {
-//         UserId = 2,
-//         BookId = 3
-//     });
+        await dbContext.UsersBooks.AddAsync(new UserBook
+        {
+            UserId = 2,
+            BookId = 3
+        });
 
-//     try
-//     {
-//         await dbContext.SaveChangesAsync();
-//     }
-//     catch (Exception ex)
-//     {
-//         Console.WriteLine(ex.Message);
-//     }
-// }
+        await dbContext.SaveChangesAsync();
+    }
+}
 
 app.UseSwagger();
 
