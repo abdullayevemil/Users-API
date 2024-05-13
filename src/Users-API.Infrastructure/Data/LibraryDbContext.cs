@@ -9,4 +9,12 @@ public class LibraryDbContext : DbContext
     public DbSet<UserBook> UsersBooks { get; set; }
 
     public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options) { }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<UserBook>()
+            .HasKey(ub => new { ub.UserId, ub.BookId });
+    }
 }

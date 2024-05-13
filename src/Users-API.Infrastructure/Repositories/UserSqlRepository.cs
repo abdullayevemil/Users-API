@@ -17,23 +17,23 @@ public class UserSqlRepository : IUsersRepository
 
     public async Task<User> GetUserByIdAsync(int userId)
     {
-        var searchedUser = dbContext.Users.FirstOrDefault(user => user.Id == userId); 
+        var searchedUser = dbContext.Users.FirstOrDefault(user => user.Id == userId);
 
         var booksIds = dbContext.UsersBooks.Where(userBook => userBook.UserId == userId);
 
         HttpClient client = new HttpClient();
 
-        var books = new Book[]{};
+        var books = new List<Book> { };
 
         foreach (var bookId in booksIds)
         {
-            var book = await client.GetFromJsonAsync<Book>($"http://localhost:8080/api/Books/GetBook/{bookId}");
+            var book = await client.GetFromJsonAsync<Book>($"http://localhost:8080/api/Books/GetBook/{bookId.BookId}");
 
-            books.Append(book);
+            books.Add(book!);
         }
 
-        searchedUser!.Books = books;
-        
+        searchedUser!.Books = books.ToArray();
+
         return searchedUser;
     }
 }
