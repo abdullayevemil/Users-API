@@ -27,7 +27,7 @@ public class UserSqlRepository : IUsersRepository
 
         foreach (var bookId in booksIds)
         {
-            var book = await client.GetFromJsonAsync<Book>($"http://localhost:8080/api/Books/GetBook/{bookId.BookId}");
+            var book = await client.GetFromJsonAsync<Book>($"http://booksapiapp:8080/api/Books/GetBook/{bookId.BookId}");
 
             books.Add(book!);
         }
